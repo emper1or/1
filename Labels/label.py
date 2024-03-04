@@ -13,4 +13,3 @@ class Labels(ttk.Label):
     def inspect_label(self):
         self["text"] = self.text
         self.pack()
-
