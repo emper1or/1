@@ -1,14 +1,13 @@
 from tkinter import *
 from PIL import Image, ImageTk
-import matplotlib.pyplot as plt
-import os
+# import matplotlib.pyplot as plt
 import math
 
 root = Tk()  # создаем корневой объект - окно
 
 root.title("GIIK's")  # устанавливаем заголовок окна
 root.geometry("300x300+150+90")  # устанавливаем размеры окна
-root.iconbitmap(default="LOGOS\logo.ico")  # не робит потому что пидарас
+root.iconbitmap("logo.ico")  # не робит потому что пидарас
 root.config(background='#E2F1F1')  # установка цвета
 root.resizable(False, False)
 
@@ -26,6 +25,7 @@ def input_base(text, res):
     first_button(window)
     second_button(window)
 
+
 def input_base_t(text, res):
     window = Toplevel()
 
@@ -35,6 +35,7 @@ def input_base_t(text, res):
     window.resizable(False, False)
 
     second_button(window)
+
 
 def answer_base(text, res):
     window = Toplevel()
@@ -46,7 +47,9 @@ def answer_base(text, res):
 
     answer_button(window)
 
+
 def first_button(window):
+    window.iconbitmap("logo.ico")
     label_of_input = Label(window, text="Задача № 2.3", bg="#E2F1F1")
     label_of_input.pack(anchor=N)
 
@@ -77,10 +80,12 @@ def first_button(window):
 
 
 def second_button(window):
+    window.iconbitmap("logo.ico")
+
     def show_message():
         if entry.get().isnumeric():
             global t
-            label["text"] = f'Вы успешно добавили время: {entry.get()}'
+            label["text"] = f'Вы успешно изменили переменную t: {entry.get()}'
             t = int(entry.get())
         else:
             label["text"] = f"Введите корректное время!"
@@ -97,17 +102,6 @@ def second_button(window):
 
     label = Label(window)
     label.pack(anchor=N, padx=6, pady=6)
-    # Добавляем формулу
-    formula = r'$y_1 = 32 + 125t^2$'
-    plt.text(0.01, 0.8, formula, fontsize=30)
-
-    # Прячем оси
-    fig = plt.gca()
-    fig.axes.get_xaxis().set_visible(False)
-    fig.axes.get_yaxis().set_visible(False)
-
-    # Сохраняем как картинку
-    plt.savefig('filename.png')
 
     '''
     image2 = Image.open("filename.png")
@@ -121,12 +115,13 @@ def second_button(window):
     # Position image
     label1.place(x=100, y=78)'''
 
-
     exit_buttons(window)
 
     window.mainloop()
 
+
 def answer_button(window):
+    window.iconbitmap("logo.ico")
     label_of_answer = Label(window, text="Решение задачи", bg="#E2F1F1")
     label_of_answer.pack(anchor=N)
 
@@ -134,25 +129,26 @@ def answer_button(window):
     s_1 = 32 + 125 * t ** 2
     v_1 = 250 * t / 1000
 
-
     at_1 = 0.25
 
-    w2 = v_1 / (100 * 10**(-3))
-    e2 = at_1 / (100 * 10**(-3))
+    w2 = v_1 / (100 * 10 ** (-3))
+    e2 = at_1 / (100 * 10 ** (-3))
 
     vb = w2 * 72 * 10 ** (-3)
     atb = e2 * 72 * 10 ** (-3)
 
-    w3 = vb/(150 * 10 ** (-3))
-    e3 = atb/(150 * 10 ** (-3))
-
+    w3 = vb / (150 * 10 ** (-3))
+    e3 = atb / (150 * 10 ** (-3))
 
     vm = w3 * 130 * 10 ** (-3)
     atm = e3 * 130 * 10 ** (-3)
 
-    anm = round( vm ** 2 / (130 * 10 ** (-3)), 1)
+    anm = round(vm ** 2 / (130 * 10 ** (-3)), 1)
     am = round(math.sqrt(anm ** 2 + atm ** 2), 5)
-    text_of_answer = f"Ответ: в момент времени t = {t} с прошел «путь» равный {s_1}мм, \n а точка М малого цилиндра блока 3 механизма имеет \n «нормальное ускорение» {anm}м/c^2,\n«тангенциальное ускорение» {atm}м/c^2 и «полное ускорение» {am}"
+    text_of_answer = (
+        f"Ответ: в момент времени t = {t} с груз прошел «путь» равный {s_1}мм, \n а точка М малого цилиндра "
+        f"блока 3 механизма имеет \n «нормальное ускорение» {anm}м/c^2,\n«тангенциальное ускорение» {atm}м/c^2 и "
+        f"«полное ускорение» {am}м/c^2")
 
     text_label_of_input = Label(window, text=text_of_answer, bg="#E2F1F1")
     text_label_of_input.pack(fill=X)
@@ -173,7 +169,8 @@ l_1.pack(anchor='center', expand=1)
 b_1 = Button(text="Условия", bg="#C5F4F4", command=lambda: input_base(text="Условия", res="600x500"))
 b_1.pack(anchor='center', expand=1)
 
-b_2 = Button(text="Переменные условия", bg="#C5F4F4", command=lambda: input_base_t(text="Введите параметры", res="300x300"))
+b_2 = Button(text="Переменные условия", bg="#C5F4F4",
+             command=lambda: input_base_t(text="Введите параметры", res="300x300"))
 b_2.pack(anchor='center', expand=1)
 
 b_3 = Button(text="Решение", bg="#C5F4F4", command=lambda: answer_base(text="Решение", res="600x150"))
